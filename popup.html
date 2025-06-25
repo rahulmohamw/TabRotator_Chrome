@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 250px;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      text-align: center;
+    }
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    .input-group {
+      margin: 15px 0;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+      color: #555;
+    }
+    input[type="number"] {
+      width: 80px;
+      padding: 8px;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .start-btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .stop-btn {
+      background-color: #f44336;
+      color: white;
+    }
+    .start-btn:hover {
+      background-color: #45a049;
+    }
+    .stop-btn:hover {
+      background-color: #da190b;
+    }
+    .status {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .status.running {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .status.stopped {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">Tab Rotator</div>
+    
+    <div class="input-group">
+      <label for="interval">Rotation Interval (seconds):</label>
+      <input type="number" id="interval" min="1" max="3600" value="5">
+    </div>
+    
+    <button id="startBtn" class="start-btn">Start Rotation</button>
+    <button id="stopBtn" class="stop-btn">Stop Rotation</button>
+    
+    <div id="status" class="status stopped">Stopped</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
