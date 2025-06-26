@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Rotator with Refresh",
+  "version": "1.0",
+  "description": "Automatically rotate through open tabs at customizable intervals with optional refresh",
+  "permissions": [
+    "tabs",
+    "storage",
+    "activeTab"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Tab Rotator"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
