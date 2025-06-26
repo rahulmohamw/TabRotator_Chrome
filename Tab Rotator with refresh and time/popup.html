@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 320px;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      text-align: center;
+    }
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    .input-group {
+      margin: 15px 0;
+    }
+    .uniform-timing {
+      margin: 15px 0;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+      color: #555;
+    }
+    input[type="number"] {
+      width: 80px;
+      padding: 8px;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 16px;
+    }
+    .checkbox-group {
+      margin: 15px 0;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .checkbox-group input[type="checkbox"] {
+      margin-right: 8px;
+      transform: scale(1.2);
+    }
+    .checkbox-group label {
+      margin: 0;
+      font-size: 14px;
+      color: #555;
+      cursor: pointer;
+    }
+    .tab-selection {
+      margin: 15px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+      display: none;
+      text-align: left;
+    }
+    .individual-timing-section {
+      margin: 15px 0;
+      padding: 10px;
+      border: 1px solid #007bff;
+      border-radius: 4px;
+      background-color: #e7f3ff;
+      display: none;
+      text-align: left;
+    }
+    .tab-selection h4, .individual-timing-section h4 {
+      margin: 0 0 10px 0;
+      font-size: 14px;
+      color: #333;
+      text-align: center;
+    }
+    .tab-list, .individual-timing-list {
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    .tab-item {
+      display: flex;
+      align-items: center;
+      margin: 5px 0;
+      padding: 5px;
+      border-radius: 3px;
+    }
+    .tab-item:hover {
+      background-color: #e9e9e9;
+    }
+    .tab-item input[type="checkbox"] {
+      margin-right: 8px;
+      transform: scale(1.1);
+    }
+    .tab-item label {
+      font-size: 12px;
+      color: #666;
+      cursor: pointer;
+      flex: 1;
+      margin: 0;
+    }
+    .timing-item {
+      display: flex;
+      align-items: center;
+      margin: 8px 0;
+      padding: 5px;
+      border-radius: 3px;
+      background-color: white;
+    }
+    .timing-label {
+      flex: 1;
+      font-size: 12px;
+      color: #333;
+      margin: 0;
+      margin-right: 10px;
+    }
+    .timing-input {
+      width: 50px !important;
+      padding: 4px !important;
+      font-size: 12px !important;
+      margin-right: 5px;
+    }
+    .seconds-label {
+      font-size: 12px;
+      color: #666;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .start-btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .stop-btn {
+      background-color: #f44336;
+      color: white;
+    }
+    .start-btn:hover {
+      background-color: #45a049;
+    }
+    .stop-btn:hover {
+      background-color: #da190b;
+    }
+    .start-btn:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    .stop-btn:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    .status {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      text-align: center;
+    }
+    .status.running {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .status.stopped {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .timing-mode-section {
+      margin: 15px 0;
+      padding: 10px;
+      border: 1px solid #28a745;
+      border-radius: 4px;
+      background-color: #f8fff9;
+    }
+    .timing-mode-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #28a745;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">Tab Rotator</div>
+    
+    <div class="timing-mode-section">
+      <div class="timing-mode-title">Timing Mode</div>
+      <div class="checkbox-group">
+        <input type="checkbox" id="useIndividualTiming">
+        <label for="useIndividualTiming">Use individual timing for each tab</label>
+      </div>
+    </div>
+    
+    <div id="uniformTiming" class="uniform-timing">
+      <div class="input-group">
+        <label for="interval">Rotation Interval (seconds):</label>
+        <input type="number" id="interval" min="1" max="3600" value="5">
+      </div>
+    </div>
+    
+    <div id="individualTimingSection" class="individual-timing-section">
+      <h4>Set timing for each tab:</h4>
+      <div id="individualTimingList" class="individual-timing-list"></div>
+    </div>
+    
+    <div class="checkbox-group">
+      <input type="checkbox" id="refreshEnabled">
+      <label for="refreshEnabled">Refresh selected tabs on rotation</label>
+    </div>
+    
+    <div id="tabSelection" class="tab-selection">
+      <h4>Select tabs to refresh:</h4>
+      <div id="tabList" class="tab-list"></div>
+    </div>
+    
+    <button id="startBtn" class="start-btn">Start Rotation</button>
+    <button id="stopBtn" class="stop-btn">Stop Rotation</button>
+    
+    <div id="status" class="status stopped">Stopped</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
